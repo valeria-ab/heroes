@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
-import Cards from './Cards';
+import Cards from './Cards/Cards';
 import {api} from './api/api';
+import {Pagination} from './Pagination';
 
-export type Responce = {
+export type ResponceType = {
     count: number
     next: string
     previous: string
@@ -29,40 +30,58 @@ export type HeroType = {
 }
 type StateType = {
     heroes: HeroType[];
+    heroesTotalCount: number;
     isLoading: boolean;
+    page: number
 };
 
 
 export class App extends React.Component<{}, StateType> {
-    // constructor() {
-    //  super()
-    //     this.state  = {
-    //         heroes: [],
-    //         isLoading: true
-    //     }
-    // }
-    state: StateType = {
-        heroes: [],
-        isLoading: true
+
+    constructor(props: {}) {
+     super(props)
+        this.state  = {
+            heroesTotalCount: 0,
+             isLoading: true,
+               page: 1,
+                heroes: []
+        }
+        this.onPageChanged = this.onPageChanged.bind(this)
     }
+
+    async onPageChanged(page:number) {
+        this.setState({
+            isLoading: true
+        })
+
+       this.setState({
+
+           heroes: await api.getNextPage(page),
+           isLoading: false,
+       })
+
+   }
 
     async componentDidMount() {
         this.setState({
             heroes: await api.getHeroes(),
+            heroesTotalCount: await api.getHeroesTotalCount(),
             isLoading: false
         })
     }
 
 
     render() {
-        const {isLoading, heroes} = this.state
+        console.log("App")
+        const {isLoading, heroes, heroesTotalCount} = this.state
 
-        if (isLoading) return <div>Loader...</div>
+        if (isLoading) return <div>Loading...</div>
 
         return (
             <div className="App">
                 <header className="App-header">
-                    <Cards heroes={heroes}/>
+                    <Cards heroes={heroes} />
+                    <Pagination heroesTotalCount={heroesTotalCount} onPageChanged={this.onPageChanged}/>
                 </header>
             </div>
         )
