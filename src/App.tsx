@@ -3,6 +3,9 @@ import './App.css';
 import Cards from './Cards/Cards';
 import {api} from './api/api';
 import {Pagination} from './Pagination';
+import RoutesComponent from './Routes';
+import {Route, Routes} from 'react-router-dom';
+import {HeroPersonalCard} from './Cards/Card/Card';
 
 export type ResponceType = {
     count: number
@@ -80,8 +83,12 @@ export class App extends React.Component<{}, StateType> {
         return (
             <div className="App">
                 <header className="App-header">
-                    <Cards heroes={heroes} />
-                    <Pagination heroesTotalCount={heroesTotalCount} onPageChanged={this.onPageChanged}/>
+
+
+                    <Routes>
+                        <Route path={"/"} element={  <Cards heroes={heroes} heroesTotalCount={heroesTotalCount} onPageChanged={this.onPageChanged} />} />
+                        <Route path={"/hero"} element={<HeroPersonalCard/>} />
+                    </Routes>
                 </header>
             </div>
         )
