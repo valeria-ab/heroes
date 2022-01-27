@@ -37,7 +37,6 @@ type StateType = {
     heroesTotalCount: number
     isLoading: boolean
     page: number
-    isFavorite: boolean
 };
 
 
@@ -51,7 +50,6 @@ export class App extends React.Component<{}, StateType> {
             page: 1,
             heroes: [] as HeroType[],
             favorites: [] as HeroType[],
-            isFavorite: false
         }
         this.onPageChanged = this.onPageChanged.bind(this)
     }
@@ -106,9 +104,16 @@ export class App extends React.Component<{}, StateType> {
             page: page
         })
     }
+    //
+    // setSortedFavorites = (sortedFavorites: HeroType[]) => {
+    //     this.setState({
+    //         ...this.state,
+    //         favorites: sortedFavorites
+    //     })
+    // }
 
     render() {
-        console.log('app')
+        // console.log('app')
         const {isLoading, heroes, heroesTotalCount, favorites} = this.state
 
         if (isLoading) return <div>Loading...</div>
@@ -139,6 +144,7 @@ export class App extends React.Component<{}, StateType> {
                         />
                         <Route path={'/favorites'}
                                element={<Favorites
+                                   // setSortedFavorites={this.setSortedFavorites}
                                    favorites={favorites}
                                    removeFromFavorites={this.removeFromFavorites}
                                />

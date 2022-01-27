@@ -19,7 +19,10 @@ function Card(props:
 
             <div>
                 <span className={s.addToOrRemovefromFavs}
-                     onClick={() => props.addToOrRemoveFromFavorites(props.hero)
+                     onClick={() => {
+
+                         props.addToOrRemoveFromFavorites(props.hero)
+                     }
                      }> {props.addRemoveButtonName}
                 </span>
             </div>
