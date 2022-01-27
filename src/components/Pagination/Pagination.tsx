@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import s from './Paginations.module.css'
-import {api} from './api/api';
+import {api} from '../../api/api';
 
 
 export const Pagination: React.FC<PropsType> = (props) => {

@@ -1,4 +1,6 @@
-import axios from "axios";
+import axios, {AxiosResponse} from 'axios';
+import {ResponseType} from '../App';
+import {PlanetResponseType, VehicleResponseType} from '../components/Cards/Card/Card';
 
 
 const instance = axios.create({
@@ -9,17 +11,22 @@ const instance = axios.create({
 export const api = {
   getHeroes() {
     return instance
-        .get(`/people`)
-        .then(res => res.data.results)
-  },
-  getHeroesTotalCount() {
-    return instance
-        .get(`/people`)
-        .then(res => res.data.count)
+        .get<ResponseType, AxiosResponse<ResponseType>>(`/people`)
+        .then(res => res.data)
   },
   getNextPage(page:number) {
     return instance
         .get(`/people/?page=${page}`)
         .then(res => res.data.results)
+  },
+  getPlanet(planetNumber:string) {
+    return instance
+        .get<PlanetResponseType, AxiosResponse<PlanetResponseType>>(`/planets/${planetNumber}`)
+        .then(res => res.data.name)
+  },
+  getVehicle(vehicleNumber:string) {
+    return instance
+        .get<PlanetResponseType, AxiosResponse<VehicleResponseType>>(`/vehicles/${vehicleNumber}`)
+        .then(res => res.data.name)
   }
 }

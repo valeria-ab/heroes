@@ -1,13 +1,12 @@
 import React from 'react';
 import './App.css';
-import Cards from './Cards/Cards';
 import {api} from './api/api';
-import {Pagination} from './Pagination';
-import RoutesComponent from './Routes';
 import {Route, Routes} from 'react-router-dom';
-import {HeroPersonalCard} from './Cards/Card/Card';
+import {Favorites} from './components/Favorites';
+import Cards from './components/Cards/Cards';
+import {HeroPersonalCard} from './components/Cards/Card/Card';
 
-export type ResponceType = {
+export type ResponseType = {
     count: number
     next: string
     previous: string
@@ -31,63 +30,113 @@ export type HeroType = {
     edited: string
     url: string
 }
+
 type StateType = {
-    heroes: HeroType[];
-    heroesTotalCount: number;
-    isLoading: boolean;
+    heroes: HeroType[]
+    favorites: HeroType[]
+    heroesTotalCount: number
+    isLoading: boolean
     page: number
+    isFavorite: boolean
 };
 
 
 export class App extends React.Component<{}, StateType> {
 
     constructor(props: {}) {
-     super(props)
-        this.state  = {
+        super(props)
+        this.state = {
             heroesTotalCount: 0,
-             isLoading: true,
-               page: 1,
-                heroes: []
+            isLoading: true,
+            page: 1,
+            heroes: [] as HeroType[],
+            favorites: [] as HeroType[],
+            isFavorite: false
         }
         this.onPageChanged = this.onPageChanged.bind(this)
     }
 
-    async onPageChanged(page:number) {
+    async onPageChanged(page: number) {
         this.setState({
             isLoading: true
         })
 
-       this.setState({
+        this.setState({
+            heroes: await api.getNextPage(page),
+            isLoading: false,
+        })
 
-           heroes: await api.getNextPage(page),
-           isLoading: false,
-       })
-
-   }
+    }
 
     async componentDidMount() {
-        this.setState({
-            heroes: await api.getHeroes(),
-            heroesTotalCount: await api.getHeroesTotalCount(),
-            isLoading: false
-        })
+        const result = await api.getHeroes()
+        try {
+            this.setState({
+                heroes: result.results,
+                heroesTotalCount: result.count,
+                isLoading: false
+            })
+        } catch (e) {
+        }
+
+    }
+
+    addToFavorites = (hero: HeroType) => {
+        if (!this.state.favorites.includes(hero)) {
+            this.setState({
+                ...this.state,
+                favorites: [...this.state.favorites, hero]
+            })
+        }
+    }
+
+    removeFromFavorites = (hero: HeroType) => {
+        if (this.state.favorites.includes(hero)) {
+            this.setState({
+                ...this.state,
+                favorites: this.state.favorites.filter(
+                    h => h.name !== hero.name
+                )
+            })
+        }
     }
 
 
     render() {
-        console.log("App")
-        const {isLoading, heroes, heroesTotalCount} = this.state
+        console.log('app')
+        const {isLoading, heroes, heroesTotalCount, favorites} = this.state
 
         if (isLoading) return <div>Loading...</div>
 
         return (
             <div className="App">
                 <header className="App-header">
-
-
                     <Routes>
-                        <Route path={"/"} element={  <Cards heroes={heroes} heroesTotalCount={heroesTotalCount} onPageChanged={this.onPageChanged} />} />
-                        <Route path={"/hero"} element={<HeroPersonalCard/>} />
+                        <Route
+                            path={'/'}
+                            element={<Cards
+                                heroes={heroes}
+                                favorites={favorites}
+                                heroesTotalCount={heroesTotalCount}
+                                onPageChanged={this.onPageChanged}
+                                addToFavorites={this.addToFavorites}
+                                removeFromFavorites={this.removeFromFavorites}
+                            />
+                            }
+                        />
+                        <Route path={'/hero/:nameHero'}
+                               element={<HeroPersonalCard
+                                   heroes={heroes}
+                               />
+                               }
+                        />
+                        <Route path={'/favorites'}
+                               element={<Favorites
+                                   favorites={favorites}
+                                   removeFromFavorites={this.removeFromFavorites}
+                               />
+                               }
+                        />
                     </Routes>
                 </header>
             </div>
