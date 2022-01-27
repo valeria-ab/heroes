@@ -6,6 +6,8 @@ import {Pagination} from '../Pagination/Pagination';
 
 
 function Cards(props: {
+    page: number
+    setPage: (page: number) => void
     heroes: HeroType[],
     favorites: HeroType[],
     heroesTotalCount: number
@@ -26,7 +28,15 @@ function Cards(props: {
     }))
 
     return (<div>
+            <div>
+                <Pagination heroesTotalCount={props.heroesTotalCount}
+                            onPageChanged={props.onPageChanged}
+                            page={props.page}
+                            setPage={props.setPage}
+                />
+            </div>
             <div className={s.cards}>
+
                 {sortedHeroes.map(h => <Card hero={h}
                                              addRemoveButtonName={h.isFavorite
                                                  ? 'remove from favs'
@@ -37,7 +47,7 @@ function Cards(props: {
                                                  : props.addToFavorites}
                 />)}
             </div>
-            <Pagination heroesTotalCount={props.heroesTotalCount} onPageChanged={props.onPageChanged}/>
+
         </div>
     );
 }

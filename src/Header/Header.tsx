@@ -5,7 +5,7 @@ import React from 'react';
 export const Header = () => {
     return <div>
         <NavLink to={'/'}>
-            <span className={s.headerSpan}>Heroes</span>
+            <span className={s.headerSpan}>Characters</span>
         </NavLink>
         <NavLink to={'/favorites'}>
             <span className={s.headerSpan}>favorites</span>

@@ -101,6 +101,11 @@ export class App extends React.Component<{}, StateType> {
         }
     }
 
+    setPage = (page: number) => {
+        this.setState({
+            page: page
+        })
+    }
 
     render() {
         console.log('app')
@@ -115,6 +120,8 @@ export class App extends React.Component<{}, StateType> {
                         <Route
                             path={'/'}
                             element={<Cards
+                                page={this.state.page}
+                                setPage={this.setPage}
                                 heroes={heroes}
                                 favorites={favorites}
                                 heroesTotalCount={heroesTotalCount}
