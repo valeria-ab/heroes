@@ -33,7 +33,6 @@ export class Favorites extends React.Component<PropsType, StateType> {
 
     sortByName = () => {
         const favorites = [...this.props.favorites]
-        // const favorites = this.props.favorites
         const sortedFavorites = favorites.sort(
             function (a, b) {
                 let nameA = a.name.toLowerCase()
@@ -48,6 +47,13 @@ export class Favorites extends React.Component<PropsType, StateType> {
         this.setSortedFavorites(sortedFavorites)
     }
 
+    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
+        if (this.props.favorites !== prevProps.favorites) {
+            this.setSortedFavorites(this.state.sortedFavorites.filter(sf => this.props.favorites.includes(sf) && sf))
+        }
+    }
+
+
     componentWillUnmount() {
         this.setSortedFavorites([])
         this.props.onPageChanged(1)
@@ -55,9 +61,7 @@ export class Favorites extends React.Component<PropsType, StateType> {
     }
 
     render() {
-        console.log("sort")
-        console.log(this.props.favorites)
-        console.log(this.state.sortedFavorites)
+
         return (
             <div>
                 <span>Favorites</span>

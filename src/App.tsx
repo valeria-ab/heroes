@@ -92,12 +92,12 @@ export class App extends React.Component<{}, StateType> {
     }
 
     removeFromFavorites = (hero: HeroType) => {
-            this.setState({
-                ...this.state,
-                favorites: this.state.favorites.filter(
-                    h => h.name !== hero.name
-                )
-            })
+        this.setState({
+            ...this.state,
+            favorites: this.state.favorites.filter(
+                h => h.name !== hero.name
+            )
+        })
     }
 
     setPortion = (pagePortion: number) => {
