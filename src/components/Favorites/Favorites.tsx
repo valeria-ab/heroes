@@ -1,19 +1,22 @@
-import {HeroType} from '../App';
+import {HeroType} from '../../App';
 import React from 'react';
-import s from './Cards/Cards.module.css';
-import Card from './Cards/Card/Card';
-import {Sorting} from './Sorting/Sorting';
+import s from '../Cards/Cards.module.css';
+import Card from '../Cards/Card/Card';
+import {Sorting} from '../Sorting/Sorting';
 
 
 type PropsType = {
     favorites: HeroType[]
     removeFromFavorites: (hero: HeroType) => void
+    onPageChanged: (page: number) => void
+    setPortion: (pagePortion: number) => void
 }
 type StateType = {
     sortedFavorites: HeroType[],
 }
 
 export class Favorites extends React.Component<PropsType, StateType> {
+
     constructor(props: PropsType) {
         super(props)
         this.state = {
@@ -30,6 +33,7 @@ export class Favorites extends React.Component<PropsType, StateType> {
 
     sortByName = () => {
         const favorites = [...this.props.favorites]
+        // const favorites = this.props.favorites
         const sortedFavorites = favorites.sort(
             function (a, b) {
                 let nameA = a.name.toLowerCase()
@@ -46,14 +50,18 @@ export class Favorites extends React.Component<PropsType, StateType> {
 
     componentWillUnmount() {
         this.setSortedFavorites([])
+        this.props.onPageChanged(1)
+        this.props.setPortion(1)
     }
 
     render() {
+        console.log("sort")
+        console.log(this.props.favorites)
+        console.log(this.state.sortedFavorites)
         return (
             <div>
-                Favorites---
-                {this.state.sortedFavorites.length}
-                {/*<div>"props.favorites": {JSON.stringify(props.favorites, null, 2)}</div>*/}
+                <span>Favorites</span>
+
                 {
                     this.props.favorites.length
                         ? <>

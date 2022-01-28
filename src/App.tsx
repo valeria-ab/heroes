@@ -2,9 +2,9 @@ import React from 'react';
 import './App.css';
 import {api} from './api/api';
 import {Route, Routes} from 'react-router-dom';
-import {Favorites} from './components/Favorites';
+import {Favorites} from './components/Favorites/Favorites';
 import Cards from './components/Cards/Cards';
-import {HeroPersonalCard} from './components/Cards/Card/Card';
+import {HeroPersonalCard} from './components/Cards/Card/HeroPersonalCard';
 
 export type ResponseType = {
     count: number
@@ -37,6 +37,7 @@ type StateType = {
     heroesTotalCount: number
     isLoading: boolean
     page: number
+    pagePortion: number //for pagination
 };
 
 
@@ -50,6 +51,7 @@ export class App extends React.Component<{}, StateType> {
             page: 1,
             heroes: [] as HeroType[],
             favorites: [] as HeroType[],
+            pagePortion: 1
         }
         this.onPageChanged = this.onPageChanged.bind(this)
     }
@@ -60,6 +62,7 @@ export class App extends React.Component<{}, StateType> {
         })
 
         this.setState({
+            page: page,
             heroes: await api.getNextPage(page),
             isLoading: false,
         })
@@ -89,44 +92,36 @@ export class App extends React.Component<{}, StateType> {
     }
 
     removeFromFavorites = (hero: HeroType) => {
-        if (this.state.favorites.includes(hero)) {
             this.setState({
                 ...this.state,
                 favorites: this.state.favorites.filter(
                     h => h.name !== hero.name
                 )
             })
-        }
     }
 
-    setPage = (page: number) => {
+    setPortion = (pagePortion: number) => {
         this.setState({
-            page: page
+            pagePortion: pagePortion
         })
     }
-    //
-    // setSortedFavorites = (sortedFavorites: HeroType[]) => {
-    //     this.setState({
-    //         ...this.state,
-    //         favorites: sortedFavorites
-    //     })
-    // }
 
     render() {
-        // console.log('app')
         const {isLoading, heroes, heroesTotalCount, favorites} = this.state
 
         if (isLoading) return <div>Loading...</div>
 
         return (
+
             <div className="App">
                 <header className="App-header">
                     <Routes>
                         <Route
                             path={'/'}
                             element={<Cards
+                                setPortion={this.setPortion}
                                 page={this.state.page}
-                                setPage={this.setPage}
+                                pagePortion={this.state.pagePortion}
                                 heroes={heroes}
                                 favorites={favorites}
                                 heroesTotalCount={heroesTotalCount}
@@ -144,8 +139,9 @@ export class App extends React.Component<{}, StateType> {
                         />
                         <Route path={'/favorites'}
                                element={<Favorites
-                                   // setSortedFavorites={this.setSortedFavorites}
+                                   setPortion={this.setPortion}
                                    favorites={favorites}
+                                   onPageChanged={this.onPageChanged}
                                    removeFromFavorites={this.removeFromFavorites}
                                />
                                }
