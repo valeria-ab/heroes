@@ -15,17 +15,19 @@ function Cards(props: {
     addToFavorites: (hero: HeroType) => void
     removeFromFavorites: (hero: HeroType) => void
 }) {
+    // console.log("Cards")
+    // console.log(props.favorites)
+    // const sortedHeroes = props.heroes.map(hero => {
+    //         console.log(props.favorites.includes(hero))
+    //         return ({
+    //             ...hero,
+    //             isFavorite: props.favorites.includes(hero)
+    //             // isFavorite: props.favorites.find(f => hero.name === f.name)
+    //         })
+    //     }
+    //
+    // )
 
-    const sortedHeroes = props.heroes.map(hero => ({
-        ...hero,
-        isFavorite: props.favorites.find(f => {
-            if (hero.name === f.name) {
-                return true
-            } else {
-                return false
-            }
-        })
-    }))
 
     return (<div>
             <div>
@@ -37,12 +39,12 @@ function Cards(props: {
             </div>
             <div className={s.cards}>
 
-                {sortedHeroes.map(h => <Card hero={h}
-                                             addRemoveButtonName={h.isFavorite
+                {props.heroes.map(h => <Card hero={h}
+                                             addRemoveButtonName={props.favorites.includes(h)
                                                  ? 'remove from favs'
                                                  : 'add to favs'
                                              }
-                                             addToOrRemoveFromFavorites={h.isFavorite
+                                             addToOrRemoveFromFavorites={props.favorites.includes(h)
                                                  ? props.removeFromFavorites
                                                  : props.addToFavorites}
                 />)}
