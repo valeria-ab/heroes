@@ -134,6 +134,7 @@ export class App extends React.Component<{}, StateType> {
                         <Route path={'/hero/:nameHero'}
                                element={<HeroPersonalCard
                                    heroes={heroes}
+                                   favorites={favorites}
                                />
                                }
                         />

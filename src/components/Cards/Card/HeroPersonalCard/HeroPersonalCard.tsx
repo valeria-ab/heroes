@@ -5,13 +5,15 @@ import React from 'react';
 
 type HeroPersonalCardProps = {
     heroes: HeroType[]
+    favorites: HeroType[]
 }
 
 export const HeroPersonalCard = (props: HeroPersonalCardProps) => {
 //функциональная, потому что в react-router-dom 6м не поддерживается withRouter :(
 
+    const heroesForHeroPersonalCard =  [...props.heroes, ...props.favorites]
     const {nameHero} = useParams()
-    const currentHero = props.heroes.find(
+    const currentHero = heroesForHeroPersonalCard.find(
         (hero) => hero.name === nameHero
     )
 
