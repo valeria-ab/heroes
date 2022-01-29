@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Card.module.css'
+import s from './Card.module.scss'
 import {NavLink} from 'react-router-dom';
 import {HeroType} from '../../../App';
 
@@ -16,17 +16,20 @@ export class Card extends React.Component<PropsType> {
         return (
             <div className={s.card}>
                 <NavLink to={`/hero/${this.props.hero.name}`}>
-                    <div className={s.personalCard}>photo</div>
+                    <div className={s.photo}>photo</div>
                 </NavLink>
                 <div className={s.name}>{this.props.hero.name}</div>
 
                 <div>
-                <span className={s.addToOrRemovefromFavs}
-                      onClick={() => {
+                <span
+                    className={this.props.addRemoveButtonName === 'remove from favorites'
+                        ? s.removefromFavs
+                        : s.addToFavs}
+                    onClick={() => {
 
-                          this.props.addToOrRemoveFromFavorites(this.props.hero)
-                      }
-                      }> {this.props.addRemoveButtonName}
+                        this.props.addToOrRemoveFromFavorites(this.props.hero)
+                    }
+                    }> {this.props.addRemoveButtonName}
                 </span>
                 </div>
 

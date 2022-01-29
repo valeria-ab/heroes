@@ -1,6 +1,6 @@
 import React from 'react';
 import Card from './Card/Card';
-import s from './Cards.module.css';
+import s from './Cards.module.scss';
 import {HeroType} from '../../App';
 import {Pagination} from '../Pagination/Pagination';
 
@@ -37,13 +37,13 @@ export class Cards extends React.Component<PropsType> {
                             f => f.name).includes(h.name)
                             ? <Card hero={h}
                                     key={h.name}
-                                    addRemoveButtonName={'remove from favs'}
+                                    addRemoveButtonName={'remove from favorites'}
                                     addToOrRemoveFromFavorites={this.props.removeFromFavorites}
 
                             />
                             : <Card hero={h}
                                     key={h.name}
-                                    addRemoveButtonName={'add'}
+                                    addRemoveButtonName={'+ add to favorites'}
                                     addToOrRemoveFromFavorites={this.props.addToFavorites}
                             />
                     )

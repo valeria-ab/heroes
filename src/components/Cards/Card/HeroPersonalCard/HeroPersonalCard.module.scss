@@ -1,0 +1,84 @@
+.heroPersonalCard {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  margin: 20px auto;
+
+  .heroName {
+    font-weight: bold;
+    font-size: 30px;
+    padding: 2px 10px;
+    border: 1px solid #e7f706;
+    //border: 1px solid #e7f706;
+    margin-top: 30px;
+  }
+
+  .cardDetails {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    min-height: 50vh;
+    width: 75%;
+    margin: 5% auto;
+
+    .photo {
+      margin: 10px;
+      width: 200px;
+      background-color: rgba(255, 255, 255, 0.3);
+      min-height: 45vh;
+      border: 1px solid #dd2ad2;
+
+      .photo div {
+        margin-top: 50%;
+      }
+    }
+
+    .description {
+      min-width: 60%;
+      min-height: 45vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Zen Kurenaido', sans-serif;
+      font-size: 20px;
+      background-color: rgba(255, 255, 255, 0.3);
+      margin: 10px;
+      border: 1px solid #dd2ad2;
+
+      .keyWords {
+        color: #00FF00;
+
+      }
+    }
+  }
+}
+
+.message {
+  margin-top: 10vh;
+  font-size: 20px;
+}
+
+@media screen and (max-width: 640px) {
+  .cardDetails {
+    width: 100%;
+    border: 1px solid #00FF00;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .heroPersonalCard {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+
+@media screen and (max-width: 640px) {
+  .description {
+    width: 100%;
+  }
+}

@@ -4,7 +4,7 @@ import {api} from './api/api';
 import {Route, Routes} from 'react-router-dom';
 import {Favorites} from './components/Favorites/Favorites';
 import Cards from './components/Cards/Cards';
-import {HeroPersonalCard} from './components/Cards/Card/HeroPersonalCard';
+import {HeroPersonalCard} from './components/Cards/Card/HeroPersonalCard/HeroPersonalCard';
 
 export type ResponseType = {
     count: number

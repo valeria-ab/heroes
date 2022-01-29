@@ -1,6 +1,7 @@
 import {HeroType} from '../../App';
 import React from 'react';
-import s from '../Cards/Cards.module.css';
+import s from './Favorites.module.scss';
+import style from './../Cards/Cards.module.scss';
 import Card from '../Cards/Card/Card';
 import {Sorting} from '../Sorting/Sorting';
 
@@ -47,7 +48,7 @@ export class Favorites extends React.Component<PropsType, StateType> {
         this.setSortedFavorites(sortedFavorites)
     }
 
-    componentDidUpdate(prevProps: any, prevState: any, snapshot: any) {
+    componentDidUpdate(prevProps: PropsType, prevState: StateType, snapshot: any) {
         if (this.props.favorites !== prevProps.favorites) {
             this.setSortedFavorites(this.state.sortedFavorites.filter(sf => this.props.favorites.includes(sf) && sf))
         }
@@ -63,30 +64,29 @@ export class Favorites extends React.Component<PropsType, StateType> {
     render() {
 
         return (
-            <div>
-                <span>Favorites</span>
+            <div className={s.favorites}>
 
                 {
                     this.props.favorites.length
                         ? <>
                             <Sorting sortByName={this.sortByName}/>
-                            <div className={s.cards}>
+                            <div className={style.cards}>
                                 {this.state.sortedFavorites.length > 0
 
                                     ? this.state.sortedFavorites.map(h => <Card hero={h}
-                                                                                addRemoveButtonName={'remove from favs'}
+                                                                                addRemoveButtonName={'remove from favorites'}
                                                                                 addToOrRemoveFromFavorites={this.props.removeFromFavorites}
 
                                     />)
                                     : this.props.favorites.map(h => <Card hero={h}
-                                                                          addRemoveButtonName={'remove from favs'}
+                                                                          addRemoveButtonName={'remove from favorites'}
                                                                           addToOrRemoveFromFavorites={this.props.removeFromFavorites}
 
                                     />)}
 
                             </div>
                         </>
-                        : <div>you haven't added anything yet..</div>
+                        : <div className={s.message}>you haven't added anything yet..</div>
                 }
 
 

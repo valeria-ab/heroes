@@ -1,0 +1,39 @@
+.header {
+  font-family: 'Codystar', cursive;
+  font-size: 40px;
+  @media screen and (max-width: 640px) {
+    .header {
+      font-size: 10px;
+      margin-top: 10px;
+    }
+  }
+
+  .headerSpan {
+    margin-right: 20px;
+    color: #fff;
+    font-weight: lighter;
+
+  }
+
+  .headerSpan:hover {
+    color: #8cf7fe;
+  }
+
+  .slash {
+    font-family: 'Roboto Mono', monospace;
+    color: #e7f706;
+    margin-right: 20px;
+  }
+
+
+}
+
+
+@media screen and (max-width: 640px) {
+  .header {
+    font-size: 11px;
+    margin-top: 10px;
+  }
+}
+
+

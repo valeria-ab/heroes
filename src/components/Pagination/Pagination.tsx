@@ -1,5 +1,5 @@
 import React from 'react';
-import s from './Paginations.module.css'
+import s from './Pagination.module.scss'
 
 
 type PropsType = {
@@ -17,7 +17,6 @@ type StateType = {
 }
 
 export class Pagination extends React.Component<PropsType, StateType> {
-
 
 
     render() {
@@ -38,10 +37,11 @@ export class Pagination extends React.Component<PropsType, StateType> {
             <div className={s.pagination}>
                 {this.props.pagePortion > 1 &&
                     <>
-                        <button onClick={() => {
+                        <span className={s.btnLeft}
+                            onClick={() => {
                             this.props.onPageChanged(1)
                             this.props.setPortion(this.props.pagePortion - 1)
-                        }}>&lt;</button>
+                        }}>&lt;</span>
                     </>}
 
                 {pages
@@ -59,11 +59,11 @@ export class Pagination extends React.Component<PropsType, StateType> {
                     })}
 
                 {portionCount > this.props.pagePortion &&
-                    <button className={s.btnRight}
+                    <span className={s.btnRight}
                             onClick={() => {
                                 this.props.setPortion(this.props.pagePortion + 1)
                                 this.props.onPageChanged(6)
-                            }}>&gt;</button>}
+                            }}>&gt;</span>}
             </div>
         )
     }

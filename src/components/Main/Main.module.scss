@@ -1,0 +1,15 @@
+.main {
+  padding: 5vh;
+  min-height: 100vh;
+  text-align: center;
+  color: white;
+  background-color: black;
+  background-image: url("https://cutewallpaper.org/21/space-wallpapers-hd-1920x1080/1920x1080-Space-Wallpaper-HD-Pictures-Images-Photos-Backgrounds.jpg");
+
+}
+
+@media screen and (max-width: 640px) {
+  .main {
+    padding: 5px
+  }
+}

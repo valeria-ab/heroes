@@ -1,0 +1,20 @@
+.sorting {
+    margin-top: 10vh;
+}
+
+.sortByName {
+    padding: 15px;
+    border: 3px solid #e7f706;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.sortByName:hover {
+background-color: #e7f706;
+    color: black;
+}
+.sortByName:active {
+    background: black;
+    color: #e7f706;
+}

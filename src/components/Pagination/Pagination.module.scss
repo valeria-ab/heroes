@@ -1,0 +1,42 @@
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 5vh;
+
+  .btnLeft {
+    cursor: pointer;
+    color: #f7e206;
+    margin-right: 10px;
+  }
+  .item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    width: 24px;
+    height: 24px;
+    border-radius: 3px;
+    font-family: "Lato", sans-serif;
+    font-size: 12px;
+    line-height: 120%;
+    cursor: pointer;
+    margin-right: 15px;
+  }
+  .select {
+    border: 1px solid #f7e206;
+  }
+  .btnRight {
+    cursor: pointer;
+    color: #f7e206;
+    left: 10px;
+  }
+
+}
+
+@media screen and (max-width: 640px) {
+  .pagination {
+    justify-content: center;
+  }
+}
