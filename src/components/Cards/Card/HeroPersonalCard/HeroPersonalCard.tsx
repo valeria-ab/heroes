@@ -9,7 +9,6 @@ type HeroPersonalCardProps = {
 }
 
 export const HeroPersonalCard = (props: HeroPersonalCardProps) => {
-//функциональная, потому что в react-router-dom 6м не поддерживается withRouter :(
 
     const heroesForHeroPersonalCard =  [...props.heroes, ...props.favorites]
     const {nameHero} = useParams()
